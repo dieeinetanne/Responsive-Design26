@@ -1,0 +1,19 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #FFFFFF;
+}
+
+h2 {
+    font-family: "area-normal", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: #FFFFFF;
+    font-size: 26px;
+}
+
+p {
+    font-family: "area-normal", sans-serif;
+font-weight: 400;
+font-style: normal;
+font-size: 18px;}
