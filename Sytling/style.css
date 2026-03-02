@@ -2,6 +2,19 @@ body {
   margin: 0;
   padding: 0;
   background-color: #ffffff;
+  width: 100vw;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+h1 {
+color: var(--1-Color, #0037AF);
+/* H1-Desktop */
+font-family: "lulo-one", sans-serif;
+font-weight: 700;
+font-style: normal;
+font-size: 8rem;
+line-height: 100%;
 }
 
 h2 {
