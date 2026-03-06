@@ -49,8 +49,8 @@ header {
   margin-left: -10%;
   width: 90vw;
   height: 90vw;
-  align-items: center;
-  justify-content: flex-start;
+ /* align-items: center;
+  justify-content: flex-start;*/
 }
 
 svg {
