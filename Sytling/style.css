@@ -20,7 +20,8 @@ h1 {
   left: 55%;
 }
 
-h2, .kundbtitel {
+h2,
+.kundbtitel {
   font-family: "area-normal", sans-serif;
   font-weight: 700;
   font-style: normal;
@@ -31,15 +32,53 @@ h2, .kundbtitel {
 }
 
 p,
-.kundb {
+.kundbtext {
   font-family: "area-normal", sans-serif;
   font-weight: 400;
   font-style: normal;
   font-size: 18px;
 }
 
+.kundbtext {
+  color: #ffffff;
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+.kundb {
+  background: var(--4-Color, #666);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.waves {
+  top: 0;
+  left: 0;
+  width: 105vw;
+  height: auto;
+  position: absolute;
+  z-index: 1;
+  flex-shrink: 0;
+  stroke-width: 2px;
+  stroke: var(--3-Color, #fff);
+  opacity: 0.1;
+}
+
+.kundbtitel {
+  text-align: center;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 4%;
+}
+
 .zitat,
-.kundbtitel,
 .einleitung {
   display: flex;
   width: 100vw;
@@ -49,14 +88,6 @@ p,
   justify-content: center;
   text-align: right;
   background: var(--1-Color, #0037af);
-}
-
-.kundbtitel {
-  text-align: center;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 header {
