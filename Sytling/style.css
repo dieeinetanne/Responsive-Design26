@@ -13,11 +13,12 @@ h1 {
   font-family: "lulo-one", sans-serif;
   font-weight: 700;
   font-style: normal;
-  font-size: 8rem;
+  font-size: 550%;
   line-height: 100%;
   position: absolute;
   top: 0;
-  left: 65%;
+  left: 55%;
+  order: 1;
 }
 
 h2 {
@@ -36,7 +37,16 @@ p,
   font-size: 18px;
 }
 
+header {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  justify-content: flex-start
+  padding: 10rem;
+}
+
 .map {
+  margin-left: -10%;
   width: 90vw;
   height: 90vw;
   align-items: center;
@@ -44,8 +54,16 @@ p,
 }
 
 svg {
-  width: 90%;
-  height: 90%;
+  margin-top: 1%;
+  width: 95%;
+  height: 95%;
+}
+
+@media (min-width: 1024px) {
+  .map {
+    width: 100vw;
+    height: 100vh;
+  }
 }
 
 .polaroids img {
@@ -53,9 +71,12 @@ svg {
   padding: 1rem;
   padding-bottom: 6%;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  
 }
 
 /* optional: give a small margin between the polaroids */
 .polaroids > div {
   margin: 0.5rem;
+  width: 29.558rem;
+height: 48.80281rem;
 }
