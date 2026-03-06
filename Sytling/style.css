@@ -20,12 +20,14 @@ h1 {
   left: 55%;
 }
 
-h2 {
+h2, .kundbtitel {
   font-family: "area-normal", sans-serif;
   font-weight: 700;
   font-style: normal;
   color: #ffffff;
   font-size: 26px;
+  margin-left: 40%;
+  margin-right: 5%;
 }
 
 p,
@@ -34,6 +36,27 @@ p,
   font-weight: 400;
   font-style: normal;
   font-size: 18px;
+}
+
+.zitat,
+.kundbtitel,
+.einleitung {
+  display: flex;
+  width: 100vw;
+  height: 15rem;
+  margin: 0;
+  flex-direction: column;
+  justify-content: center;
+  text-align: right;
+  background: var(--1-Color, #0037af);
+}
+
+.kundbtitel {
+  text-align: center;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 header {
@@ -74,12 +97,12 @@ svg {
 
 .polaroidsgruppe {
   position: relative;
-  left: 10%
+  left: 10%;
 }
 
 .polaroidseinzel {
   background-color: #fff;
-  padding: 1rem;
+  padding: 2%;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   aspect-ratio: 3 / 4;
   object-fit: cover;
@@ -88,7 +111,7 @@ svg {
   position: absolute;
 }
 
-.polaroidseinzel img  {
+.polaroidseinzel img {
   width: 100%;
   height: auto;
   aspect-ratio: 1 / 1;
@@ -96,19 +119,18 @@ svg {
 
 .werft {
   position: relative;
-  top: 0;
-  transform: rotateX(5deg) rotateZ(-3deg);
+  transform: rotateX(5deg) rotateZ(-3deg) translateZ(-30rem);
 }
 
 .containerschiff {
   position: relative;
-  left: 5%;
-  transform: rotateX(-4deg) rotateZ(4deg) translateZ(-50rem);
+  left: 20%;
+  transform: rotateX(-4deg) rotateZ(4deg) translateZ(-80rem);
 }
 
 .uboot {
   position: absolute;
-  top: 65%;
-  transform: rotateX(6deg) rotateZ(-5deg);
+  transform: rotateX(6deg) rotateZ(-5deg) translateZ(150rem);
+  left: 5;
+  margin-bottom: 5%;
 }
-
