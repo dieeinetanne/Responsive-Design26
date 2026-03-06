@@ -13,12 +13,11 @@ h1 {
   font-family: "lulo-one", sans-serif;
   font-weight: 700;
   font-style: normal;
-  font-size: clamp(2rem, 10vw, 6rem);
+  font-size: clamp(2rem, 10vmin, 6rem);
   line-height: 100%;
   position: absolute;
   top: 0;
   left: 55%;
-  order: 1;
 }
 
 h2 {
@@ -88,12 +87,26 @@ svg {
   position: absolute;
 }
 
-.werft {
-  position: relative;
-}
-
 .polaroidseinzel img  {
   width: 100%;
   height: auto;
   aspect-ratio: 1 / 1;
+}
+
+.werft {
+  position: relative;
+  top: 0;
+  transform: rotateX(5deg) rotateZ(-3deg);
+}
+
+.containerschiff {
+  position: relative;
+  top: 5%;
+  transform: rotateX(-4deg) rotateZ(4deg);
+}
+
+.uboot {
+  position: relative;
+  top: 15%;
+  transform: rotateX(6deg) rotateZ(-5deg);
 }
