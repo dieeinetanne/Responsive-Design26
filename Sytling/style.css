@@ -102,14 +102,13 @@ svg {
 
 .containerschiff {
   position: relative;
-  top: 5%;
   left: 5%;
-  transform: rotateX(-4deg) rotateZ(4deg) translateZ(-80rem);
+  transform: rotateX(-4deg) rotateZ(4deg) translateZ(-50rem);
 }
 
 .uboot {
-  position: relative;
-  top: 15%;
-  transform: rotateX(6deg) rotateZ(-5deg) translateZ(120rem);
+  position: absolute;
+  top: 65%;
+  transform: rotateX(6deg) rotateZ(-5deg);
 }
 
