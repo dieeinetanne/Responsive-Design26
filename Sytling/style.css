@@ -184,7 +184,10 @@ svg {
   position: relative;
   overflow: hidden; /* Versteckt die Bilder, die gerade nicht dran sind */
   border: 5px solid #0037af;
-background: var(--2-Color, #E0FF47);
+}
+
+.bildkarussell {
+  background: var(--2-Color, #E0FF47);
 }
 
 .carousel-slide {
