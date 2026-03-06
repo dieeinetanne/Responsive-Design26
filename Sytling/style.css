@@ -13,7 +13,7 @@ h1 {
   font-family: "lulo-one", sans-serif;
   font-weight: 700;
   font-style: normal;
-  font-size: 550%;
+  font-size: clamp(2rem, 10vw, 6rem);
   line-height: 100%;
   position: absolute;
   top: 0;
@@ -63,16 +63,37 @@ svg {
   }
 }
 
-.polaroids img {
-  background-color: #fff;
-  padding: 1rem;
-  padding-bottom: 6%;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-  
+.history {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left: 5%;
+  margin-right: 10%;
 }
 
-.polaroids > div {
-  margin: 0.5rem;
-  width: 29.558rem;
-height: 48.80281rem;
+.polaroidsgruppe {
+  position: relative;
+}
+
+.polaroidseinzel {
+  background-color: #fff;
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  width: 35%;
+  height: auto;
+  position: absolute;
+}
+
+.werft {
+  position: relative;
+}
+
+.polaroidseinzel img  {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
 }
