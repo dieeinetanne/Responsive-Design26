@@ -1,28 +1,69 @@
-const carouselSlide = document.querySelector('.carousel-slide');
-const carouselImages = document.querySelectorAll('.carousel-slide img');
+window.addEventListener('load', () => {
+    const slide = document.querySelector('.carousel-slide');
+    const images = document.querySelectorAll('.carousel-slide img');
+    const dots = document.querySelectorAll('.dot');
+    const container = document.querySelector('.carousel-container');
 
-// Buttons
-const prevBtn = document.querySelector('#prevBtn');
-const nextBtn = document.querySelector('#nextBtn');
+    let counter = 0;
+    const intervalTime = 5000;
+    let slideInterval;
 
-// Counter
-let counter = 0;
-const size = carouselImages[0].clientWidth;
+    function updateSlide() {
+        if (!images.length || !images[0]) return;
+        
+        const size = images[0].clientWidth;
+        slide.style.transform = `translateX(${-size * counter}px)`;
+        
+        dots.forEach(dot => dot.classList.remove('active'));
+        if (dots[counter]) {
+            dots[counter].classList.add('active');
+        }
+    }
 
-// Event Listener für "Weiter"
-nextBtn.addEventListener('click', () => {
-  if (counter >= carouselImages.length - 1) {
-    counter = -1; // Springt zurück zum Anfang, wenn das Ende erreicht ist
-  }
-  counter++;
-  carouselSlide.style.transform = 'translateX(' + (-size * counter) + 'px)';
-});
+    function nextSlide() {
+        counter++;
+        if (counter >= images.length) {
+            counter = 0;
+        }
+        updateSlide();
+    }
 
-// Event Listener für "Zurück"
-prevBtn.addEventListener('click', () => {
-  if (counter <= 0) {
-    counter = carouselImages.length; // Springt zum Ende, wenn man am Anfang zurück klickt
-  }
-  counter--;
-  carouselSlide.style.transform = 'translateX(' + (-size * counter) + 'px)';
+    function startSlide() {
+        clearInterval(slideInterval);
+        slideInterval = setInterval(nextSlide, intervalTime);
+    }
+
+    // --- GLOBALE FUNKTIONEN (Sichtbar für das HTML) ---
+
+    window.currentSlide = function(index) {
+        counter = index;
+        updateSlide();
+        startSlide();
+    };
+
+    // Jetzt hier drin, damit 'counter' und 'updateSlide' bekannt sind
+    window.changeSlide = function(direction) {
+        counter += direction;
+
+        if (counter >= images.length) {
+            counter = 0;
+        }
+        if (counter < 0) {
+            counter = images.length - 1;
+        }
+
+        updateSlide();
+        startSlide();
+    };
+
+    // --- EVENT LISTENER ---
+
+    container.addEventListener('mouseenter', () => clearInterval(slideInterval));
+    container.addEventListener('mouseleave', startSlide);
+
+    // Initialisierung
+    updateSlide();
+    startSlide();
+
+    window.addEventListener('resize', updateSlide);
 });

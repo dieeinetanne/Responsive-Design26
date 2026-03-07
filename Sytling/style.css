@@ -3,8 +3,10 @@ body {
   padding: 0;
   background-color: #ffffff;
   width: 100vw;
-  height: 100vh;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1 {
@@ -176,47 +178,98 @@ svg {
 
 /*____________CAROUSEL__________*/
 
-
-
-.carousel-container {
-  width: 80%;
-  margin: 50px auto;
-  position: relative;
-  overflow: hidden; /* Versteckt die Bilder, die gerade nicht dran sind */
-  border: 5px solid #0037af;
+.bildkarussell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 2rem 0;
+background: var(--2-Color, #E0FF47);
 }
 
-.bildkarussell {
-  background: var(--2-Color, #E0FF47);
+/* ÄNDERUNG: Der Container darf nicht mehr "overflow: hidden" für die Dots sein */
+.carousel-container {
+  position: relative;
+  /* overflow: hidden;  <-- Diesen Befehl verschieben wir auf den Slide-Bereich! */
+  width: 90%; 
+  max-width: 59.08144rem; 
+  margin: 4rem auto; 
+}
+
+/* Wir brauchen einen Wrapper für die Bilder, der das Abschneiden übernimmt */
+.carousel-slide-wrapper {
+  overflow: hidden; /* Nur die Bilder werden hier abgeschnitten */
+  width: 100%;
+  aspect-ratio: 59.08144 / 71.92206; 
 }
 
 .carousel-slide {
-  display: flex; /* Legt die Bilder nebeneinander */
-  width: 100%;
-  transition: transform 0.5s ease-in-out; /* Sorgt für die weiche Bewegung */
+  display: flex;
+  height: 100%;
+  transition: transform 0.5s ease-in-out;
 }
 
-.carousel-slide img {
-  width: 100%; /* Jedes Bild nimmt die volle Breite des Containers ein */
-  height: auto;
-  flex-shrink: 0; /* Verhindert, dass die Bilder gestaucht werden */
+/* ÄNDERUNG: Die Dots sind nun unter dem Bild-Wrapper */
+.carousel-dots {
+  position: relative; /* Nicht mehr absolute */
+  bottom: 0;
+  left: 0;
+  transform: none; /* Zentrierung erfolgt jetzt über display flex am Container */
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  padding: 20px 0; /* Abstand zum Bild oben */
+  z-index: 10;
 }
 
-/* Styling für die Buttons */
-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 55, 175, 0.7);
-  color: white;
-  border: none;
-  padding: 10px 15px;
+.dot {
   cursor: pointer;
-  font-family: "area-normal", sans-serif;
-  font-weight: bold;
+  height: 14px;
+  width: 14px;
+  background-color: rgba(0, 55, 175, 0.2); /* Hellere Farbe, da sie nun auf Weiß liegen */
+  border-radius: 50%;
+  border: 1px solid #0037af;
+  transition: all 0.3s ease;
 }
 
-#prevBtn { left: 10px; }
-#nextBtn { right: 10px; }
+.dot.active {
+  background-color: #0037af;
+  transform: scale(1.2); /* Aktiver Punkt wird leicht größer */
+}
 
-button:hover { background: #0037af; }
+/* Styling für die Pfeil-Buttons */
+.nav-btn {
+  position: absolute;
+  top: 40%; /* Vertikal zentriert (bezogen auf das Bild) */
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #0037af; /* Deine Hauptfarbe */
+  font-size: 3rem;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 20;
+  transition: color 0.3s ease, transform 0.2s ease;
+  padding: 0 15px;
+}
+
+.nav-btn:hover {
+  color: #666;
+  transform: translateY(-50%) scale(1.1);
+}
+
+/* Position links und rechts */
+.prev {
+  left: -60px; /* Schiebt den Button nach links aus dem Bild heraus */
+}
+
+.next {
+  right: -60px; /* Schiebt den Button nach rechts aus dem Bild heraus */
+}
+
+/* WICHTIG: Wenn der Bildschirm zu schmal ist, müssen die Pfeile ins Bild rutschen */
+@media (max-width: 1200px) {
+  .prev { left: 10px; color: white; text-shadow: 0 0 5px rgba(0,0,0,0.5); }
+  .next { right: 10px; color: white; text-shadow: 0 0 5px rgba(0,0,0,0.5); }
+}
