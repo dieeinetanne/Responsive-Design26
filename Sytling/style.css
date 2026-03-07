@@ -11,9 +11,10 @@ html {
 }
 
 .titel, 
-.history, 
+.map-head,
+.geschichte,
+.zitat,
 .kundb, 
-.zitat, 
 .bildkarussell {
   /* Sagt dem Element: "Raste mit deiner Oberkante am Bildschirmrand ein" */
   scroll-snap-align: start;
@@ -169,7 +170,7 @@ p,
 
 .einleitung {
   /* WICHTIG: Festgelegte Position im Browserfenster */
-  position: fixed;
+  position: absolute;
   top: 5%;    /* 5% Abstand von oben */
   left: 5%;   /* 5% Abstand von links */
 
@@ -329,6 +330,7 @@ svg {
   align-items: center;
   justify-content: center;
   width: 100%;
+  max-height: 100vh;
   padding: 2rem 0;
   background: var(--2-Color, #e0ff47);
 }
@@ -336,12 +338,13 @@ svg {
 .carousel-container {
   position: relative;
   width: 90%;
+  max-height: 100vh;
   max-width: 59.08144rem;
   margin: 4rem auto;
 }
 
 .carousel-slide-wrapper {
-  overflow: hidden; /* Nur die Bilder werden hier abgeschnitten */
+  overflow: hidden; 
   width: 100%;
   aspect-ratio: 59.08144 / 71.92206;
 }
