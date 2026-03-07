@@ -1,3 +1,30 @@
+/* immer machen - Wichitg*/
+* {
+  box-sizing: border-box;
+} 
+
+html {
+  /* Aktiviert das Einrasten für die vertikale Achse */
+  scroll-snap-type: y mandatory;
+  /* Sorgt für ein weicheres Gleiten beim Einrasten */
+  scroll-behavior: smooth; 
+}
+
+.titel, 
+.history, 
+.kundb, 
+.zitat, 
+.bildkarussell {
+  /* Sagt dem Element: "Raste mit deiner Oberkante am Bildschirmrand ein" */
+  scroll-snap-align: start;
+  /* Optional: Verhindert, dass man mitten in der Sektion stoppen kann */
+  scroll-snap-stop: always; 
+  
+  /* Wichtig: Damit das gut aussieht, sollten diese Sektionen 
+     idealerweise mindestens 100vh hoch sein */
+  min-height: 100vh;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -7,6 +34,17 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.titel {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
 }
 
 h1 {
@@ -20,6 +58,10 @@ h1 {
   position: absolute;
   top: 0;
   left: 55%;
+  transition:
+    opacity 1.5s ease-in-out,
+    transform 1.5s ease-in-out;
+  z-index: 10;
 }
 
 h2,
@@ -29,8 +71,6 @@ h2,
   font-style: normal;
   color: #ffffff;
   font-size: 26px;
-  margin-left: 40%;
-  margin-right: 5%;
 }
 
 p,
@@ -47,46 +87,76 @@ p,
   margin-right: auto;
   max-width: 800px;
   width: 90vw;
+  z-index: 100;
+  position: relative;
 }
 
 .kundb {
   background: var(--4-Color, #666);
   width: 100vw;
-  min-height: 100vh; 
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center; 
+  justify-content: center;
   position: relative;
-  padding: 5rem 0; 
+  padding: 5rem 0;
   box-sizing: border-box;
 }
 
 .waves {
-  top: 0;
-  left: 0;
-  width: 105vw;
-  height: auto;
   position: absolute;
-  z-index: 1;
-  flex-shrink: 0;
-  stroke-width: 2px;
-  stroke: var(--3-Color, #fff);
+  left: -5%; /* Startet etwas links außerhalb der Sektion, um die volle Breite abzudecken */
+  right: 5%; /* Endet etwas rechts außerhalb der Sektion, um die volle Breite abzudecken */
+  width: 110%; /* Deckt die volle Breite der Sektion ab */
+  height: 100%; /* Deckt die volle Höhe ab */
+  justify-content: center;
+  align-content: center;
+  z-index: 0;
   opacity: 0.1;
+  pointer-events: none;
+
+  /* Hintergrund-Logik */
+  background-image: url("../img/blue_waves_background.svg"); /* Pfad zum SVG-Bild */
+
+  /* ÄNDERUNG: 100% Breite sorgt dafür, dass das Motiv genau einmal quer passt. 
+     'auto' berechnet die dazu passende Höhe des Bildes automatisch. */
+  background-size: 100% auto;
+
+  /* ÄNDERUNG: Nur in der Vertikalen (Y-Achse) wiederholen */
+  background-repeat: repeat-y;
+
+  /* Sorgt dafür, dass das Muster oben bündig startet */
+  background-position: top center;
+
+  /*-------Animation-------*/
+  animation: waveSway 4s ease-in-out infinite;
+  background-repeat: repeat-y;
+}
+
+@keyframes waveSway {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(30px);
+  }
 }
 
 .kundbtitel {
   text-align: center;
-  margin: 0 0 2rem 0; 
+  margin: 0 0 2rem 0;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
+  z-index: 100;
+  position: relative;
 }
 
-.zitat,
-.einleitung {
+.zitat {
   display: flex;
   width: 100vw;
   height: 15rem;
@@ -95,6 +165,56 @@ p,
   justify-content: center;
   text-align: right;
   background: var(--1-Color, #0037af);
+}
+
+.einleitung {
+  /* WICHTIG: Festgelegte Position im Browserfenster */
+  position: fixed;
+  top: 5%;    /* 5% Abstand von oben */
+  left: 5%;   /* 5% Abstand von links */
+
+  /* Größe und Layout */
+  min-width: 40%; 
+  max-width: 600px;
+  height: auto;
+  padding: 2rem;
+  margin: 0; 
+  display: flex;
+  flex-direction: column; /* Text untereinander */
+  align-items: flex-start;
+  text-align: left;
+  color: #ffffff; /* Sicherstellen, dass der Text weiß ist */
+
+  /* Höchster Z-Index, damit es über der Map (5) und H1 (10) liegt */
+  z-index: 999;
+
+  /* Startzustand für die Animation */
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none; 
+
+  transition:
+    opacity 1.5s ease-in-out 1s,
+    transform 1.5s ease-in-out 1s;
+}
+
+/* Aktivierung */
+.zoom-active .einleitung,
+.zoom-active + main .einleitung,
+.zoom-active ~ main .einleitung,
+.is-visible.einleitung {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto; /* Klicks wieder erlauben */
+}
+
+/* WICHTIG: Damit die Einleitung nicht für immer über der Seite klebt, 
+   muss sie beim Weiterscrollen verschwinden. */
+.einleitung.scrolled-past {
+  opacity: 0;
+  transform: translateY(-20px); /* Bewegt sich leicht nach oben beim Verschwinden */
+  pointer-events: none; /* Verhindert, dass man die Box unsichtbar noch anklicken kann */
+  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
 }
 
 header {
@@ -108,6 +228,25 @@ header {
   margin-left: -10%;
   width: 90vw;
   height: 90vw;
+  transition: transform 2s ease-in-out;
+
+  /* ÄNDERUNG: Der Fixpunkt ist unten. 
+     Dadurch wächst das Bild beim Vergrößern nach OBEN aus dem Rand. */
+  transform-origin: center bottom;
+
+  z-index: 5;
+  width: 100%;
+  height: auto;
+}
+
+/* Der Zoom-Zustand */
+.zoom-active .map {
+  transform: scale(2); /* Vergrößert sich um 50% */
+}
+
+.zoom-active h1 {
+  opacity: 0;
+  transform: translateX(100px); /* Bewegt sich beim Faden nach rechts */
 }
 
 svg {
@@ -147,6 +286,15 @@ svg {
   width: 35%;
   height: auto;
   position: absolute;
+
+  opacity: 0;                /* Startet unsichtbar */
+  margin-top: 100px;         /* Startet 100px tiefer */
+  transition: opacity 0.8s ease-out, margin-top 0.8s ease-out;
+}
+
+.polaroidseinzel.reveal {
+  opacity: 1;                /* Wird sichtbar */
+  margin-top: 0;             /* Gleitet an Originalposition (nach oben) */
 }
 
 .polaroidseinzel img {
@@ -173,9 +321,6 @@ svg {
   margin-bottom: 5%;
 }
 
-
-
-
 /*____________CAROUSEL__________*/
 
 .bildkarussell {
@@ -185,23 +330,20 @@ svg {
   justify-content: center;
   width: 100%;
   padding: 2rem 0;
-background: var(--2-Color, #E0FF47);
+  background: var(--2-Color, #e0ff47);
 }
 
-/* ÄNDERUNG: Der Container darf nicht mehr "overflow: hidden" für die Dots sein */
 .carousel-container {
   position: relative;
-  /* overflow: hidden;  <-- Diesen Befehl verschieben wir auf den Slide-Bereich! */
-  width: 90%; 
-  max-width: 59.08144rem; 
-  margin: 4rem auto; 
+  width: 90%;
+  max-width: 59.08144rem;
+  margin: 4rem auto;
 }
 
-/* Wir brauchen einen Wrapper für die Bilder, der das Abschneiden übernimmt */
 .carousel-slide-wrapper {
   overflow: hidden; /* Nur die Bilder werden hier abgeschnitten */
   width: 100%;
-  aspect-ratio: 59.08144 / 71.92206; 
+  aspect-ratio: 59.08144 / 71.92206;
 }
 
 .carousel-slide {
@@ -210,12 +352,11 @@ background: var(--2-Color, #E0FF47);
   transition: transform 0.5s ease-in-out;
 }
 
-/* ÄNDERUNG: Die Dots sind nun unter dem Bild-Wrapper */
 .carousel-dots {
-  position: relative; /* Nicht mehr absolute */
+  position: relative; 
   bottom: 0;
   left: 0;
-  transform: none; /* Zentrierung erfolgt jetzt über display flex am Container */
+  transform: none; 
   display: flex;
   justify-content: center;
   gap: 15px;
@@ -227,7 +368,12 @@ background: var(--2-Color, #E0FF47);
   cursor: pointer;
   height: 14px;
   width: 14px;
-  background-color: rgba(0, 55, 175, 0.2); /* Hellere Farbe, da sie nun auf Weiß liegen */
+  background-color: rgba(
+    0,
+    55,
+    175,
+    0.2
+  ); 
   border-radius: 50%;
   border: 1px solid #0037af;
   transition: all 0.3s ease;
@@ -235,10 +381,9 @@ background: var(--2-Color, #E0FF47);
 
 .dot.active {
   background-color: #0037af;
-  transform: scale(1.2); /* Aktiver Punkt wird leicht größer */
 }
 
-/* Styling für die Pfeil-Buttons */
+/* Pfeil-Buttons */
 .nav-btn {
   position: absolute;
   top: 40%; /* Vertikal zentriert (bezogen auf das Bild) */
@@ -250,7 +395,9 @@ background: var(--2-Color, #E0FF47);
   font-weight: bold;
   cursor: pointer;
   z-index: 20;
-  transition: color 0.3s ease, transform 0.2s ease;
+  transition:
+    color 0.3s ease,
+    transform 0.2s ease;
   padding: 0 15px;
 }
 
@@ -259,17 +406,25 @@ background: var(--2-Color, #E0FF47);
   transform: translateY(-50%) scale(1.1);
 }
 
-/* Position links und rechts */
+/* Position Buttons links und rechts */
 .prev {
-  left: -60px; /* Schiebt den Button nach links aus dem Bild heraus */
+  left: -60px; 
 }
 
 .next {
-  right: -60px; /* Schiebt den Button nach rechts aus dem Bild heraus */
+  right: -60px; 
 }
 
-/* WICHTIG: Wenn der Bildschirm zu schmal ist, müssen die Pfeile ins Bild rutschen */
+/* Pfeile ins Bild rutschen */
 @media (max-width: 1200px) {
-  .prev { left: 10px; color: white; text-shadow: 0 0 5px rgba(0,0,0,0.5); }
-  .next { right: 10px; color: white; text-shadow: 0 0 5px rgba(0,0,0,0.5); }
+  .prev {
+    left: 10px;
+    color: white;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  }
+  .next {
+    right: 10px;
+    color: white;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  }
 }

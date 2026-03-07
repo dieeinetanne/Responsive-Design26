@@ -67,3 +67,60 @@ window.addEventListener('load', () => {
 
     window.addEventListener('resize', updateSlide);
 });
+
+/*-----Zoom map-----*/
+window.addEventListener('load', () => {
+  const titelSection = document.querySelector('.titel');
+
+  // Warte 2000 Millisekunden (2 Sekunden)
+  setTimeout(() => {
+    if (titelSection) {
+      titelSection.classList.add('zoom-active');
+    }
+  }, 2000);
+});
+/*------Einleitung------*/
+window.addEventListener('scroll', () => {
+  const einleitung = document.querySelector('.einleitung');
+  const threshold = window.innerHeight * 0.4; // Ab 40% der ersten Seite ausblenden
+
+  if (window.scrollY > threshold) {
+    // Wir fügen die Klasse hinzu, wenn wir weit genug unten sind
+    einleitung.classList.add('scrolled-past');
+  } else {
+    // Wir entfernen sie wieder, wenn man ganz nach oben scrollt
+    einleitung.classList.remove('scrolled-past');
+  }
+});
+
+/*-----Polaroids-----*/
+
+window.addEventListener('load', () => {
+    // 1. Die Polaroids auswählen
+    const polaroids = document.querySelectorAll('.polaroidseinzel');
+    
+    // 2. Den Beobachter einrichten
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // BEIM RUNTERSCROLLEN: Nacheinander erscheinen lassen
+                polaroids.forEach((el, index) => {
+                    setTimeout(() => {
+                        el.classList.add('reveal');
+                    }, index * 300); // 300ms Zeitabstand zwischen den Bildern
+                });
+            } else {
+                // BEIM HOCHSCROLLEN: Wieder nach unten verschwinden lassen
+                polaroids.forEach((el) => {
+                    el.classList.remove('reveal');
+                });
+            }
+        });
+    }, { threshold: 0.1 }); // Startet sobald 10% der Sektion sichtbar sind
+
+    // 3. Den Bereich "History" beobachten
+    const historySection = document.querySelector('.history');
+    if (historySection) {
+        observer.observe(historySection);
+    }
+});
