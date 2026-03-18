@@ -71,7 +71,7 @@ h2,
   font-weight: 700;
   font-style: normal;
   color: #ffffff;
-  font-size: 26px;
+  font-size: 3rem;
 }
 
 p,
@@ -131,7 +131,7 @@ p,
   background-position: top center;
 
   /*-------Animation-------*/
-  animation: waveSway 4s ease-in-out infinite;
+  animation: waveSway 2s ease-in-out infinite;
   background-repeat: repeat-y;
 }
 
@@ -164,8 +164,15 @@ p,
   margin: 0;
   flex-direction: column;
   justify-content: center;
-  text-align: right;
+  text-align: center;
   background: var(--1-Color, #0037af);
+}
+
+.zitatbox {
+  max-width: 800px;
+  width: 90vw;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .einleitung {
@@ -378,7 +385,6 @@ svg {
     0.2
   ); 
   border-radius: 50%;
-  border: 1px solid #0037af;
   transition: all 0.3s ease;
 }
 
