@@ -1,72 +1,112 @@
 window.addEventListener('load', () => {
     const slide = document.querySelector('.carousel-slide');
-    const images = document.querySelectorAll('.carousel-slide img');
+    let images = document.querySelectorAll('.carousel-slide img');
     const dots = document.querySelectorAll('.dot');
     const container = document.querySelector('.carousel-container');
 
-    let counter = 0;
+    if (!images.length) return;
+
+    // 1. Klone erstellen (Anfang und Ende)
+    const firstClone = images[0].cloneNode(true);
+    const lastClone = images[images.length - 1].cloneNode(true);
+    
+    // IDs vergeben, damit wir sie später eindeutig identifizieren können
+    firstClone.id = 'first-clone';
+    lastClone.id = 'last-clone';
+
+    slide.appendChild(firstClone);
+    slide.prepend(lastClone);
+
+    // Bilder-Liste neu laden (jetzt +2 Bilder)
+    const allImages = document.querySelectorAll('.carousel-slide img');
+    let counter = 1; // Wir starten beim ersten "echten" Bild
     const intervalTime = 5000;
     let slideInterval;
 
+    // Initialisierung der Position ohne Animation
+    const size = images[0].clientWidth;
+    slide.style.transform = `translateX(${-size * counter}px)`;
+
     function updateSlide() {
-        if (!images.length || !images[0]) return;
+        const currentSize = allImages[0].clientWidth;
+        slide.style.transition = "transform 0.5s ease-in-out";
+        slide.style.transform = `translateX(${-currentSize * counter}px)`;
         
-        const size = images[0].clientWidth;
-        slide.style.transform = `translateX(${-size * counter}px)`;
-        
-        dots.forEach(dot => dot.classList.remove('active'));
-        if (dots[counter]) {
-            dots[counter].classList.add('active');
-        }
+        // Dots Logik
+        updateDots();
     }
 
-    function nextSlide() {
-        counter++;
-        if (counter >= images.length) {
-            counter = 0;
+    function updateDots() {
+        dots.forEach(dot => dot.classList.remove('active'));
+        let dotIndex = counter - 1;
+        if (counter >= allImages.length - 1) dotIndex = 0;
+        if (counter <= 0) dotIndex = dots.length - 1;
+        if (dots[dotIndex]) dots[dotIndex].classList.add('active');
+    }
+
+    // DER TRICK: Wenn die Animation fertig ist, prüfen wir auf Klone
+    slide.addEventListener('transitionend', () => {
+        if (allImages[counter].id === 'first-clone') {
+            slide.style.transition = "none"; // Animation kurz aus
+            counter = 1; // Springe zum echten ersten Bild
+            const currentSize = allImages[0].clientWidth;
+            slide.style.transform = `translateX(${-currentSize * counter}px)`;
         }
+        if (allImages[counter].id === 'last-clone') {
+            slide.style.transition = "none";
+            counter = allImages.length - 2; // Springe zum echten letzten Bild
+            const currentSize = allImages[0].clientWidth;
+            slide.style.transform = `translateX(${-currentSize * counter}px)`;
+        }
+    });
+
+    function nextSlide() {
+        if (counter >= allImages.length - 1) return;
+        counter++;
         updateSlide();
     }
+
+    function prevSlide() {
+        if (counter <= 0) return;
+        counter--;
+        updateSlide();
+    }
+
+    // Globale Funktionen für HTML-Buttons
+    window.changeSlide = function(direction) {
+        if (direction === 1) nextSlide();
+        else prevSlide();
+        startSlide();
+    };
+
+    window.currentSlide = function(index) {
+        counter = index + 1;
+        updateSlide();
+        startSlide();
+    };
 
     function startSlide() {
         clearInterval(slideInterval);
         slideInterval = setInterval(nextSlide, intervalTime);
     }
 
-    // --- GLOBALE FUNKTIONEN (Sichtbar für das HTML) ---
-
-    window.currentSlide = function(index) {
-        counter = index;
-        updateSlide();
-        startSlide();
-    };
-
-    // Jetzt hier drin, damit 'counter' und 'updateSlide' bekannt sind
-    window.changeSlide = function(direction) {
-        counter += direction;
-
-        if (counter >= images.length) {
-            counter = 0;
-        }
-        if (counter < 0) {
-            counter = images.length - 1;
-        }
-
-        updateSlide();
-        startSlide();
-    };
-
-    // --- EVENT LISTENER ---
-
     container.addEventListener('mouseenter', () => clearInterval(slideInterval));
     container.addEventListener('mouseleave', startSlide);
+    window.addEventListener('resize', () => {
+        slide.style.transition = "none";
+        const currentSize = allImages[0].clientWidth;
+        slide.style.transform = `translateX(${-currentSize * counter}px)`;
+    });
 
-    // Initialisierung
-    updateSlide();
     startSlide();
-
-    window.addEventListener('resize', updateSlide);
+    updateDots();
 });
+
+
+
+
+
+
 
 /*-----Zoom map-----*/
 window.addEventListener('load', () => {

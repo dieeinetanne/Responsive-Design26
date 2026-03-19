@@ -4,10 +4,15 @@
 } 
 
 html {
-  /* Aktiviert das Einrasten für die vertikale Achse */
-  scroll-snap-type: y mandatory;
-  /* Sorgt für ein weicheres Gleiten beim Einrasten */
-  scroll-behavior: smooth; 
+  scroll-behavior: smooth;
+  scroll-snap-type: none; /* Auf Mobile standardmäßig aus */
+}
+
+/* Erst ab einer Breite von 769px (Desktop/Tablet) wird Snap aktiviert */
+@media screen and (min-width: 769px) {
+  html {
+    scroll-snap-type: y mandatory;
+  }
 }
 
 .titel, 
@@ -71,7 +76,7 @@ h2,
   font-weight: 700;
   font-style: normal;
   color: #ffffff;
-  font-size: 3rem;
+  font-size: 2rem;
 }
 
 p,
@@ -435,5 +440,44 @@ svg {
     right: 10px;
     color: white;
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  }
+}
+
+
+/* Alles in diesem Block gilt nur für Bildschirme bis 768px Breite */
+@media screen and (max-width: 768px) {
+  
+  h1 {
+    /* WICHTIG: Überschreibt deine Desktop-Werte */
+    top: auto;            /* Hebt top: 0 auf */
+    left: 50%;            /* Setzt die Startposition auf die Mitte */
+    bottom: 5vh;          /* Abstand zum unteren Rand */
+    
+    /* Zentrierung und Reset der Desktop-Position */
+    transform: translateX(-50%); 
+    
+    /* Text-Anpassungen */
+    font-size: clamp(1.5rem, 8vw, 3rem);
+    width: 90%;
+    text-align: center;
+    
+    /* Falls du im Desktop-Style ein 'margin' oder 'right' hast, sicherheitshalber resetten */
+    right: auto;
+    margin: 0;
+  }
+
+  .polaroidsgruppe {
+    position: relative;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem; /* Abstand zwischen den Polaroids */
+  }
+
+  .polaroidseinzel {
+    width: 80%; /* Breiter auf kleinen Bildschirmen */
+    position: relative; /* Positionierung zurücksetzen */
+    margin-top: 0; /* Startposition zurücksetzen */
   }
 }
