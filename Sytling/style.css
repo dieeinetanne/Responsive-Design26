@@ -1,7 +1,7 @@
 /* immer machen - Wichitg*/
 * {
   box-sizing: border-box;
-} 
+}
 
 html {
   scroll-behavior: smooth;
@@ -15,17 +15,17 @@ html {
   }
 }
 
-.titel, 
+.titel,
 .map-head,
 .geschichte,
 .zitat,
-.kundb, 
+.kundb,
 .bildkarussell {
   /* Sagt dem Element: "Raste mit deiner Oberkante am Bildschirmrand ein" */
   scroll-snap-align: start;
   /* Optional: Verhindert, dass man mitten in der Sektion stoppen kann */
-  scroll-snap-stop: always; 
-  
+  scroll-snap-stop: always;
+
   /* Wichtig: Damit das gut aussieht, sollten diese Sektionen 
      idealerweise mindestens 100vh hoch sein */
   min-height: 100vh;
@@ -183,15 +183,15 @@ p,
 .einleitung {
   /* WICHTIG: Festgelegte Position im Browserfenster */
   position: absolute;
-  top: 5%;    /* 5% Abstand von oben */
-  left: 5%;   /* 5% Abstand von links */
+  top: 5%; /* 5% Abstand von oben */
+  left: 5%; /* 5% Abstand von links */
 
   /* Größe und Layout */
-  min-width: 40%; 
+  min-width: 40%;
   max-width: 600px;
   height: auto;
   padding: 2rem;
-  margin: 0; 
+  margin: 0;
   display: flex;
   flex-direction: column; /* Text untereinander */
   align-items: flex-start;
@@ -204,7 +204,7 @@ p,
   /* Startzustand für die Animation */
   opacity: 0;
   transform: translateY(20px);
-  pointer-events: none; 
+  pointer-events: none;
 
   transition:
     opacity 1.5s ease-in-out 1s,
@@ -225,12 +225,16 @@ p,
    muss sie beim Weiterscrollen verschwinden. */
 .einleitung.scrolled-past {
   opacity: 0;
-  transform: translateY(-20px); /* Bewegt sich leicht nach oben beim Verschwinden */
+  transform: translateY(
+    -20px
+  ); /* Bewegt sich leicht nach oben beim Verschwinden */
   pointer-events: none; /* Verhindert, dass man die Box unsichtbar noch anklicken kann */
-  transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+  transition:
+    opacity 0.5s ease-in-out,
+    transform 0.5s ease-in-out;
 }
 
-header {
+.header {
   display: flex;
   align-items: center;
   flex-direction: row;
@@ -268,7 +272,7 @@ svg {
   height: 95%;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .map {
     width: 100vw;
     height: 100vh;
@@ -300,14 +304,16 @@ svg {
   height: auto;
   position: absolute;
 
-  opacity: 0;                /* Startet unsichtbar */
-  margin-top: 100px;         /* Startet 100px tiefer */
-  transition: opacity 0.8s ease-out, margin-top 0.8s ease-out;
+  opacity: 0; /* Startet unsichtbar */
+  margin-top: 100px; /* Startet 100px tiefer */
+  transition:
+    opacity 0.8s ease-out,
+    margin-top 0.8s ease-out;
 }
 
 .polaroidseinzel.reveal {
-  opacity: 1;                /* Wird sichtbar */
-  margin-top: 0;             /* Gleitet an Originalposition (nach oben) */
+  opacity: 1; /* Wird sichtbar */
+  margin-top: 0; /* Gleitet an Originalposition (nach oben) */
 }
 
 .polaroidseinzel img {
@@ -341,22 +347,24 @@ svg {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100%;
+  width: 100vw;
   max-height: 100vh;
-  padding: 2rem 0;
   background: var(--2-Color, #e0ff47);
 }
 
 .carousel-container {
   position: relative;
   width: 90%;
-  max-height: 100vh;
-  max-width: 59.08144rem;
-  margin: 4rem auto;
+  max-width: 30rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .carousel-slide-wrapper {
-  overflow: hidden; 
+  overflow: hidden;
   width: 100%;
   aspect-ratio: 59.08144 / 71.92206;
 }
@@ -368,10 +376,10 @@ svg {
 }
 
 .carousel-dots {
-  position: relative; 
+  position: relative;
   bottom: 0;
   left: 0;
-  transform: none; 
+  transform: none;
   display: flex;
   justify-content: center;
   gap: 15px;
@@ -383,12 +391,7 @@ svg {
   cursor: pointer;
   height: 14px;
   width: 14px;
-  background-color: rgba(
-    0,
-    55,
-    175,
-    0.2
-  ); 
+  background-color: rgba(0, 55, 175, 0.2);
   border-radius: 50%;
   transition: all 0.3s ease;
 }
@@ -400,84 +403,216 @@ svg {
 /* Pfeil-Buttons */
 .nav-btn {
   position: absolute;
-  top: 40%; /* Vertikal zentriert (bezogen auf das Bild) */
+  /* top: 50% zentriert sie genau mittig zum Container */
+  top: 50%;
   transform: translateY(-50%);
   background: none;
   border: none;
-  color: #0037af; /* Deine Hauptfarbe */
+  color: #0037af;
   font-size: 3rem;
   font-weight: bold;
   cursor: pointer;
   z-index: 20;
-  transition:
-    color 0.3s ease,
-    transform 0.2s ease;
-  padding: 0 15px;
+  padding: 0 10px;
 }
 
-.nav-btn:hover {
-  color: #666;
-  transform: translateY(-50%) scale(1.1);
-}
-
-/* Position Buttons links und rechts */
+/* Positioniere die Pfeile knapp außerhalb oder am Rand des Bildes */
 .prev {
-  left: -60px; 
+  left: -100px;
 }
 
 .next {
-  right: -60px; 
+  right: -100px;
 }
 
-/* Pfeile ins Bild rutschen */
-@media (max-width: 1200px) {
+.top {
+  position: fixed; /* Fixiert es relativ zum Browserfenster, nicht zum Inhalt */
+  bottom: 2rem; /* Abstand vom unteren Bildschirmrand */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999; /* Sehr hoch, damit es über allen Sektionen liegt */
+  transition: opacity 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.4s ease,
+    visibility 0.4s;
+  cursor: pointer;
+}
+
+.top.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+
+
+
+/* Optional: Pfeile auf Mobilgeräten IN das Bild schieben, damit sie nicht verschwinden */
+@media (max-width: 600px) {
   .prev {
-    left: 10px;
-    color: white;
-    text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    left: 5px;
   }
   .next {
-    right: 10px;
+    right: 5px;
+  }
+  .nav-btn {
     color: white;
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
   }
 }
 
-
-/* Alles in diesem Block gilt nur für Bildschirme bis 768px Breite */
+/* Mobile 768px Breite - Optimiert */
 @media screen and (max-width: 768px) {
-  
+  body {
+    padding: 0;
+  }
+
+  .titel {
+    /* Sicherstellen, dass der Container die volle Höhe hat */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Verteilt SVG oben und H1 unten */
+    align-items: center;
+    height: 100vh;
+    position: relative;
+  }
+
   h1 {
-    /* WICHTIG: Überschreibt deine Desktop-Werte */
-    top: auto;            /* Hebt top: 0 auf */
-    left: 50%;            /* Setzt die Startposition auf die Mitte */
-    bottom: 5vh;          /* Abstand zum unteren Rand */
-    
-    /* Zentrierung und Reset der Desktop-Position */
-    transform: translateX(-50%); 
-    
-    /* Text-Anpassungen */
-    font-size: clamp(1.5rem, 8vw, 3rem);
-    width: 90%;
+    /* 1. Positionierung aufheben oder anpassen */
+    position: absolute;
+    top: auto; /* WICHTIG: Überschreibt das 'top: 0' von oben */
+    bottom: 10rem; /* Klebt es an den unteren Rand des .titel Containers */
+
+    /* 2. Zentrierung */
+    left: 50%;
+    transform: translateX(-50%);
+
+    /* 3. Layout */
+    width: 100%;
     text-align: center;
-    
-    /* Falls du im Desktop-Style ein 'margin' oder 'right' hast, sicherheitshalber resetten */
-    right: auto;
     margin: 0;
+    padding: 1rem;
+
+    /* 4. Hintergrund (Optional) */
+    /* Falls das SVG hinter dem Text liegt, hilft ein Hintergrund: */
+    /* background: rgba(255,255,255,0.7); */
+
+    z-index: 10;
+  }
+
+  .header {
+    /* Sorgt dafür, dass der Header (mit der Map) oben bleibt */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 5vh; /* Etwas Platz nach oben */
+  }
+
+  .map {
+    /* Breite für Mobile optimieren, damit sie nicht alles überdeckt */
+    width: 80vw;
+    height: auto;
+    margin-left: 0; /* Margin-Korrektur für Mobile */
+    transform-origin: center center;
+  }
+
+  /* Der Zoom-Zustand */
+  .zoom-active .map {
+    transform: scale(6) translateY(-22%); /* Vergrößert sich um 700% und verschiebt sich nach unten, damit der Fokus auf der Mitte liegt */
+  }
+
+  .zoom-active h1 {
+    opacity: 0;
+    transform: translateX(100px); /* Bewegt sich beim Faden nach rechts */
+  }
+
+  svg {
+    margin-top: 60%;
+    width: 100%;
+    height: 100%;
+  }
+
+  h2,
+  .kundbtitel {
+    font-family: "area-normal", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    color: #ffffff;
+    font-size: 1.5rem;
+  }
+
+  .history {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 10%;
+    margin-right: 15%;
   }
 
   .polaroidsgruppe {
     position: relative;
-    left: 0;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 2rem; /* Abstand zwischen den Polaroids */
+    flex-direction: row; /* Nebeneinander */
+    align-items: center; /* Vertikal zentrieren */
+    justify-content: center;
+    left: 0;             /* Zentrierung korrigiert von -10% */
+  width: 100vw;
+  gap: 0;
   }
 
-  .polaroidseinzel {
-    width: 80%; /* Breiter auf kleinen Bildschirmen */
-    position: relative; /* Positionierung zurücksetzen */
-    margin-top: 0; /* Startposition zurücksetzen */
+  .polaroidseinzel, 
+  .werft, 
+  .containerschiff, 
+  .uboot {
+    /* Alle verhalten sich jetzt gleich in der Reihe */
+    position: relative;  /* WICHTIG: absolute Positionierung aufheben */
+    top: auto;
+    left: auto;
+    bottom: auto;
+    transform: none;     /* Entfernt alle Rotationen und 3D-Effekte */
+    flex-shrink: 0;      /* Verhindert, dass die Bilder gequetscht werden */
+    width: 60vw;         /* Größe für Mobile optimiert */
+    max-width: 250px;
+    opacity: 1;          /* Sichtbar machen */
   }
+
+  /* Spezifische Korrektur für das U-Boot */
+  .uboot {
+    margin: 0;
+    margin-bottom: 0;    /* Entfernt den Desktop-Margin */
+    transform: scale(0.7) rotate(4deg) translateX(-55%); /* Leichte Rotation für den 3D-Effekt beibehalten */
+  }
+
+  .werft{
+    margin: 0;
+    transform: scale(0.7) rotateX(5deg) rotateZ(-3deg) translateX(55%); /* Beibehaltung der leichten 3D-Rotation */
+  }
+
+  .containerschiff {
+    margin: 0;
+    transform: scale(0.7) rotateX(-4deg) rotateZ(4deg) translateZ(0); /* Beibehaltung der leichten 3D-Rotation */
+  }
+
+  /* Die Animationen (reveal) können wir für die Reihe beibehalten */
+  .polaroidseinzel.reveal, 
+  .werft.reveal, 
+  .containerschiff.reveal, 
+  .uboot.reveal {
+    opacity: 1;
+  }
+
+.zitat{
+  min-height: 30vh;
 }
+
+.kundbtext {
+  max-width: 400px;
+  width: 90vw;
+  margin: 20px;
+}
+
+}
+

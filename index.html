@@ -9,6 +9,9 @@
     <style>
       @import url("https://use.typekit.net/pic0zpp.css");
       @import url("https://use.typekit.net/pic0zpp.css");
+              html, body {
+            overflow-x: hidden;
+        }
     </style>
   </head>
 
@@ -166,8 +169,43 @@
     </main>
     <div class="bildkarussell">
       <div class="carousel-container">
-        <button class="nav-btn prev" onclick="changeSlide(-1)">&#10094;</button>
-        <button class="nav-btn next" onclick="changeSlide(1)">&#10095;</button>
+        <button class="nav-btn prev" onclick="changeSlide(-1)">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="60"
+            height="60"
+            viewBox="0 0 60 60"
+            fill="none"
+          >
+            <circle cx="30" cy="30" r="30" fill="#0037AF" />
+            <path
+              d="M35 18L23 30L35 42"
+              stroke="#E0FF47"
+              stroke-width="5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
+
+        <button class="nav-btn next" onclick="changeSlide(1)">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="60"
+            height="60"
+            viewBox="0 0 60 60"
+            fill="none"
+          >
+            <circle cx="30" cy="30" r="30" fill="#0037AF" />
+            <path
+              d="M25 42L37 30L25 18"
+              stroke="#E0FF47"
+              stroke-width="5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+        </button>
         <div class="carousel-slide-wrapper">
           <div class="carousel-slide">
             <img
@@ -194,6 +232,23 @@
           <span class="dot" onclick="currentSlide(3)"></span>
           <span class="dot" onclick="currentSlide(4)"></span>
         </div>
+      </div>
+      <div id="back-to-top" class="top" aria-label="Zurück zum Anfang">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="60"
+          height="60"
+          viewBox="0 0 60 60"
+          fill="none"
+        >
+          <circle cx="30" cy="30" r="30" fill="#0037AF" />
+          <path
+            d="M47.1954 34.4467L29.9999 20.4047L12.8044 34.4467"
+            stroke="#E0FF47"
+            stroke-width="5"
+            stroke-linecap="round"
+          />
+        </svg>
       </div>
     </div>
     <footer></footer>

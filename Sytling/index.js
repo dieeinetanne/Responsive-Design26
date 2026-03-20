@@ -164,3 +164,29 @@ window.addEventListener('load', () => {
         observer.observe(historySection);
     }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const topButton = document.getElementById("back-to-top");
+
+  // Prüfen, ob der Button im HTML vorhanden ist
+  if (topButton) {
+    
+    // 1. Die Klick-Logik (Das hat gefehlt!)
+    topButton.addEventListener("click", () => {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+    });
+
+    // 2. Die Scroll-Logik (Ein- und Ausblenden)
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 200) {
+        topButton.classList.add("is-visible");
+      } else {
+        topButton.classList.remove("is-visible");
+      }
+    });
+    
+  }
+});
