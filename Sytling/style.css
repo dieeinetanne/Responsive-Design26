@@ -188,7 +188,7 @@ p,
 
   /* Größe und Layout */
   min-width: 40%;
-  max-width: 600px;
+  max-width: 65%;
   height: auto;
   padding: 2rem;
   margin: 0;
@@ -427,8 +427,8 @@ svg {
 
 .top {
   position: fixed; /* Fixiert es relativ zum Browserfenster, nicht zum Inhalt */
-  bottom: 2rem; /* Abstand vom unteren Bildschirmrand */
-  left: 50%;
+  bottom: 1.25rem; /* Abstand vom unteren Bildschirmrand */
+  left: 51%;
   transform: translateX(-50%);
   z-index: 9999; /* Sehr hoch, damit es über allen Sektionen liegt */
   transition: opacity 0.3s ease;
@@ -444,10 +444,6 @@ svg {
   opacity: 1;
   visibility: visible;
 }
-
-
-
-
 
 /* Optional: Pfeile auf Mobilgeräten IN das Bild schieben, damit sie nicht verschwinden */
 @media (max-width: 600px) {
@@ -510,6 +506,11 @@ svg {
     margin-top: 5vh; /* Etwas Platz nach oben */
   }
 
+  .einleitung {
+    min-width: 55%;
+    max-width: 90%;
+  }
+
   .map {
     /* Breite für Mobile optimieren, damit sie nicht alles überdeckt */
     width: 80vw;
@@ -550,7 +551,9 @@ svg {
     align-items: center;
     margin-left: 10%;
     margin-right: 15%;
+  margin-bottom: 10%;
   }
+
 
   .polaroidsgruppe {
     position: relative;
@@ -558,37 +561,37 @@ svg {
     flex-direction: row; /* Nebeneinander */
     align-items: center; /* Vertikal zentrieren */
     justify-content: center;
-    left: 0;             /* Zentrierung korrigiert von -10% */
-  width: 100vw;
-  gap: 0;
+    left: 0; /* Zentrierung korrigiert von -10% */
+    width: 100vw;
+    gap: 0;
   }
 
-  .polaroidseinzel, 
-  .werft, 
-  .containerschiff, 
+  .polaroidseinzel,
+  .werft,
+  .containerschiff,
   .uboot {
     /* Alle verhalten sich jetzt gleich in der Reihe */
-    position: relative;  /* WICHTIG: absolute Positionierung aufheben */
+    position: relative; /* WICHTIG: absolute Positionierung aufheben */
     top: auto;
     left: auto;
     bottom: auto;
-    transform: none;     /* Entfernt alle Rotationen und 3D-Effekte */
-    flex-shrink: 0;      /* Verhindert, dass die Bilder gequetscht werden */
-    width: 60vw;         /* Größe für Mobile optimiert */
+    transform: none; /* Entfernt alle Rotationen und 3D-Effekte */
+    flex-shrink: 0; /* Verhindert, dass die Bilder gequetscht werden */
+    width: 60vw; /* Größe für Mobile optimiert */
     max-width: 250px;
-    opacity: 1;          /* Sichtbar machen */
+    opacity: 1; /* Sichtbar machen */
   }
 
   /* Spezifische Korrektur für das U-Boot */
   .uboot {
     margin: 0;
-    margin-bottom: 0;    /* Entfernt den Desktop-Margin */
+    margin-bottom: 0; /* Entfernt den Desktop-Margin */
     transform: scale(0.7) rotate(4deg) translateX(-55%); /* Leichte Rotation für den 3D-Effekt beibehalten */
   }
 
-  .werft{
+  .werft {
     margin: 0;
-    transform: scale(0.7) rotateX(5deg) rotateZ(-3deg) translateX(55%); /* Beibehaltung der leichten 3D-Rotation */
+    transform: scale(0.7) rotateX(5deg) rotateZ(-3deg) translateX(60%); /* Beibehaltung der leichten 3D-Rotation */
   }
 
   .containerschiff {
@@ -597,22 +600,36 @@ svg {
   }
 
   /* Die Animationen (reveal) können wir für die Reihe beibehalten */
-  .polaroidseinzel.reveal, 
-  .werft.reveal, 
-  .containerschiff.reveal, 
+  .polaroidseinzel.reveal,
+  .werft.reveal,
+  .containerschiff.reveal,
   .uboot.reveal {
     opacity: 1;
   }
 
-.zitat{
-  min-height: 30vh;
+  .zitat, .geschichte {
+    min-height: 30vh;
+  }
+
+  .kundbtext {
+    max-width: 400px;
+    width: 90vw;
+    margin: 20px;
+  }
+
+
+  /*----------------Einblenden K&B----------------*/
+  /* Startzustand: Unsichtbar und leicht nach unten verschoben */
+.kundbtext ul li {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  margin-bottom: 15px; /* Ein wenig Abstand zwischen den Punkten */
 }
 
-.kundbtext {
-  max-width: 400px;
-  width: 90vw;
-  margin: 20px;
+/* Zustand wenn sichtbar */
+.kundbtext ul li.reveal {
+  opacity: 1;
+  transform: translateY(0);
 }
-
 }
-

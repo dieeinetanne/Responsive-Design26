@@ -190,3 +190,30 @@ document.addEventListener("DOMContentLoaded", () => {
     
   }
 });
+
+window.addEventListener('load', () => {
+    const listItems = document.querySelectorAll('.kundbtext ul li');
+    
+    const listObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Nacheinander einblenden (Staging)
+                listItems.forEach((item, index) => {
+                    setTimeout(() => {
+                        item.classList.add('reveal');
+                    }, index * 400); // 400ms Verzögerung zwischen jedem Punkt
+                });
+            } else {
+                // Optional: Beim Hochscrollen wieder zurücksetzen
+                listItems.forEach((item) => {
+                    item.classList.remove('reveal');
+                });
+            }
+        });
+    }, { threshold: 0.3}); // Startet, wenn 30% der Liste sichtbar sind
+
+    const kundbSection = document.querySelector('.kundb');
+    if (kundbSection) {
+        listObserver.observe(kundbSection);
+    }
+});
